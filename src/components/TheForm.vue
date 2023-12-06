@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="submitForm">
+  <form  @submit.prevent="submitForm">
     <div class="form-control" :class="{invalid: userNameValidity == 'invalid'}">
       <label for="user-name">Your Name</label>
       <input id="user-name" name="user-name" type="text" v-model.trim="userName" @blur="validateInput" />
@@ -47,18 +47,25 @@
         <label for="how-other">Other</label>
       </div>
     </div>
+    <div class="form-control">
+      <rating-control v-model="rating"></rating-control>
+    </div>
     <div class="form-contor">
       <input type="checkbox" name="confirm-terms" id="confirm-terms" v-model="confirm">
       <label for="confirm-terms">Agree to terms of use?</label>
     </div>
     <div>
-      <button>Save Data</button>
+      <button type="submit">Save Data</button>
     </div>
   </form>
 </template>
 
 <script>
+import RatingControl from './RatingControl.vue'
 export default {
+  components:{
+RatingControl
+  },
   data() {
     return {
       userName: '',
@@ -68,7 +75,8 @@ export default {
       //  'აუცილებლად array უნდა იყოს რო ყველა ერთად არ მოინიშნოს'
       how: null,
       confirm:false,
-      userNameValidity:'pending'
+      userNameValidity:'pending',
+      rating: null
     }
   },
   methods: {
@@ -79,8 +87,13 @@ export default {
       else{
         this.userNameValidity = 'valid'
       }
-      }
+      },
+      submitForm(){
+        this.rating = null
+        console.log(1);
+    }
     },
+   
 }
 </script>
 
